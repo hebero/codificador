@@ -1,0 +1,17 @@
+#lang racket
+( display "Bienvenido al codificador Master Encoder")
+(newline)
+( display " Creadores : Tifany Galindo & Heber Orellana")
+(newline)
+(define parametros read-line)
+	(cond
+  		(string? parametros
+  			(string-split "parametros")
+  			(string-split " ")
+  			(string-split #:trim? #f)
+  			 (string-locale=? parametros)
+)
+                )
+(display "Error! Expresion no valida")
+(display " saliendo ...." )
+(display "gracias por usar nuestro codificador ")
