@@ -15,8 +15,8 @@
    (define cont 0)
    (define (ciclo) 
 	(cond
-		[(< cont (string-lenght txt))
-			(string-set! result cont (encodeChar (string-ref txt cont) (string-ref workKey cont)))
+		[(< cont (string-length txt))
+			(string-set! result cont (integer->char (encodeChar (string-ref txt cont) (string-ref workKey cont))))
 			(set! cont (+ cont 1))
 		(ciclo)
 		]
@@ -31,10 +31,11 @@
 	(define cont2 0)
 	(define (ciclo)
 		(cond
-			[(< cont (string-lenght txt))
-				(if (= cont2 (string-lenght llave)) (set! cont2 0))
+			[(< cont (string-length txt))
+				(if (= cont2 (string-length llave)) (set! cont2 0))
 				(string-set! new_key cont (string-ref llave cont2))
 				(set! cont (+ cont 1))
+                                (set! cont2 (+ cont2 1))
 				(ciclo)
 			]
 		)
@@ -48,46 +49,50 @@
    ;su implementación
    (define chTxtIsLowerCase false)
    (define chLlaveIsLowerCase false)
-   
+   (define cht (char->integer chTxt))
+   (define chk (char->integer chLlave))
    (cond
-        [(and (< (char->integer chTxt) 91) (> (char->integer chTxt) 64))
+        [(and (< cht 91) (> cht 64))
             (set! chTxtIsLowerCase false)
         ]
-        [(and (< (char->integer chTxt) 123) (> (char->integer chTxt) 96))
+        [(and (< cht 123) (> cht 96))
             (set! chTxtIsLowerCase true)
         ]
    )
     
    (cond
-        [(and (< (char->integer chLlave) 91) (> (char->integer chLlave) 64))
+        [(and (< chk 91) (> chk 64))
             (set! chLlaveIsLowerCase false)
         ]
-        [(and (< (char->integer chLlave) 123) (> (char->integer chLlave) 96))
+        [(and (< chk 123) (> chk 96))
             (set! chLlaveIsLowerCase true)
         ]
    )
    
-  (convertChar (lambda (x y)((+ (+ x y) 1))
-    (convertChar chTxt chTxtIsLowerCase 1) (convertChar chLlave chLlaveIsLowerCase 1)
-  ) chTxtIsLowerCase 2)
+  (define process (lambda (x y)(+ (+ x y) 1)))
+  
+	
+	(convertChar (process (convertChar cht chTxtIsLowerCase 1) (convertChar chk chLlaveIsLowerCase 1)) chTxtIsLowerCase 2)
 )
 (define (convertChar chr isLowercase mode)
     (cond
 	[(= mode 1)
+         (cond
 		[(equal? isLowercase false)
 			(- chr 64)
 		]
 		[else
 			(- chr 96)
-		]
+		])
 	]
 	[(= mode 2)
+         (cond
 		[(equal? isLowercase false)
 			(+ chr 64)
 		]
 		[else
 			(+ chr 96)
-		]
+		])
 	]
     )
 )
@@ -96,4 +101,5 @@
    ;su implementación
    ""
 )
+(encodeString "hola" "lem")
 "cadena"
