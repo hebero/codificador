@@ -10,12 +10,37 @@
 ; encodeString codifica un string utilizando la llave parametrizada
 (define (encodeString txt llave)
    ;su implementación
-   
-   
-   ""
+   (define workKey (completeKey llave txt))
+   (define result (string-copy txt))
+   (define cont 0)
+   (define (ciclo) 
+	(cond
+		[(< cont (string-lenght txt))
+			(string-set! result cont (encodeChar (string-ref txt cont) (string-ref workKey cont)))
+			(set! cont (+ cont 1))
+		(ciclo)
+		]
+	)
+   )
+   (ciclo)
+   result
 )
-(define (getNextChar llave)
-	
+(define (completeKey llave txt)
+	(define new_key (string-copy txt))
+	(define cont 0)
+	(define cont2 0)
+	(define (ciclo)
+		(cond
+			[(< cont (string-lenght txt))
+				(if (= cont2 (string-lenght llave)) (set! cont2 0))
+				(string-set! new_key cont (string-ref llave cont2))
+				(set! cont (+ cont 1))
+				(ciclo)
+			]
+		)
+	)
+	(ciclo)
+	new_key
 )
 
 ; encodeChar codifica un caracter en base a otro caracter de llave
