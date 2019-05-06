@@ -4,7 +4,7 @@
 ; decodeChar decode un caracter en base a otro caracter de llave
 (define (decodeChar chTxt chLlave)
     ;su implementación
-    #\null
+    (getChar chTxt chLlave 2)
 )
 
 ; encodeString codifica un string utilizando la llave parametrizada
@@ -47,10 +47,14 @@
 ; encodeChar codifica un caracter en base a otro caracter de llave
 (define (encodeChar chTxt chLlave)
    ;su implementación
-   (define chTxtIsLowerCase false)
+	(getChar chTxt chLlave 1)
+)
+
+(define (getChar chtt chkk mode)
+	   (define chTxtIsLowerCase false)
    (define chLlaveIsLowerCase false)
-   (define cht (char->integer chTxt))
-   (define chk (char->integer chLlave))
+   (define cht (char->integer chtt))
+   (define chk (char->integer chkk))
    (cond
         [(and (< cht 91) (> cht 64))
             (set! chTxtIsLowerCase false)
@@ -69,11 +73,28 @@
         ]
    )
    
-  (define process (lambda (x y)(+ (+ x y) 1)))
+  (define process (lambda (x y m)
+  (cond
+	[(= m 1)
+         (define r (-(+ x y)1))
+		(if (> r 26) (set! r (- r 25)) )
+                r
+	]
+	[else
+         (define r 	(+ (- x y) 1))
+         (if (< r 1)(set! r (* r -1)))
+         (if (> r 26)(set! r (- r 25)))
+         r
+	]
+  )
+  )
+  )
   
 	
-	(convertChar (process (convertChar cht chTxtIsLowerCase 1) (convertChar chk chLlaveIsLowerCase 1)) chTxtIsLowerCase 2)
+	(convertChar (process (convertChar cht chTxtIsLowerCase 1) (convertChar chk chLlaveIsLowerCase 1) mode) chTxtIsLowerCase 2)
 )
+
+
 (define (convertChar chr isLowercase mode)
     (cond
 	[(= mode 1)
@@ -99,7 +120,21 @@
 ; decodeString decodifica un strgin utilizando la llave parametrizada
 (define (decodeString txt llave)
    ;su implementación
-   ""
+   (define workKey (completeKey llave txt))
+   (define result (string-copy txt))
+   (define cont 0)
+   (define (ciclo) 
+	(cond
+		[(< cont (string-length txt))
+			(string-set! result cont (integer->char (decodeChar (string-ref txt cont) (string-ref workKey cont))))
+			(set! cont (+ cont 1))
+		(ciclo)
+		]
+	)
+   )
+   (ciclo)
+   result
 )
-(encodeString "hola" "lem")
+(encodeString "Hola" "lezzz")
+(decodeString "Ssxz" "lemzz")
 "cadena"
