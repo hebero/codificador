@@ -1,10 +1,5 @@
-(include "funciones.scm")
-; programa principal
-(define (main)
-    ; su implementación acá
-)
 (define (validaCaracteres txt)
-(define isValid 1)
+(define isValid 0)
 (define pos 0)
 (define txtChar 0)
     (define (ciclo)
@@ -19,6 +14,4 @@
         )
     )
 )
-(main)
 
-;comentario nuevo

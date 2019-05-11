@@ -33,6 +33,7 @@
 		(cond
 			[(< cont (string-length txt))
 				(if (= cont2 (string-length llave)) (set! cont2 0))
+                
 				(string-set! new_key cont (string-ref llave cont2))
 				(set! cont (+ cont 1))
                                 (set! cont2 (+ cont2 1))
