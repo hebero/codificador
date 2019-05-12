@@ -1,82 +1,71 @@
-	#lang racket
-	( display "Bienvenido al codificador Master Encoder")
-	(newline)
-	( display "Creadores : Tifany Galindo & Heber Orellana")
-	(newline)
-	(define parametros (read-line))
-	(define keytext "")
-	(define codkeytext "")
-	(define codfile "")
-	(define decodetext "")
-	(define decodefile "")
-	(define CONS_ERROR1 "Llave erronea.")
-	(define CONS_ERROR2 "No a ingresado ninguna llave para cifrar el texto")
+#lang racket
+( display "Bienvenido al codificador Master Encoder")
+(newline)
+( display "Creadores : Tifany Galindo & Heber Orellana")
+(newline)
+(define parametros (read-line))
+(define keytext "")
+(define codkeytext "")
+(define codfile "")
+(define decodetext "")
+(define decodefile "")
+
 	(cond
-		((string? parametros)
-				(define lista (string-split parametros))
-						(display lista)
-							(define parametro1 (list-ref lista 0))
-							(display parametro1)
-							(cond
-								((equal? parametro1 "newkey")
-								(cond 
-								[(= (validaCaracteres parametro1) 0)
-									((display "llave ha sido recibida")
-									(set! keytext (list-ref lista 1))
-									(newline)
-									(display keytext))
-								]
-								[else
-									(display CONS_ERROR1)
-								]
-									
-								)
-								(display "llave ha sido recibida")
-								(set! keytext (list-ref lista 1))
-								(newline)
-								(display keytext))
-							)
-							((equal? parametro1 "encode-text")
-								(cond [(or (null? keytext) (= (string-length keytext)0))
-										(display CONS_ERROR2)
-								]
-								[else 
-										(display "codificando texto...")
-										(set! keytext (list-ref lista 2))
-										(newline)
-										;aca ingresamos la funcioln de codificar el texto
-								]
-								)
-								
-							)
-							((equal? parametro1 "encode-text-key")
-									;aca ingresamos la funcion para cifrar texto
-									(cond
-										[(= (validaCaracteres (list-ref lista 1)))
-											(set! keytext (list-ref lista 1))
-											
-										]
-									)
-							)
-								((equal? parametro2 "encode-file")
+  		((string? parametros)
+  			(define lista (string-split parametros))
+                        (display lista)
+                        (define parametro1 (list-ref lista 0))
+                        (display parametro1)
+                        (cond
+                          ((equal? parametro1 "newkey")
+                           (display "llave ha sido recibida")
+                           (set! keytext (list-ref lista 1))
+                           (newline)
+                           (display keytext)
+                           )
+                          )
+                       )
+                             (define parametro2 (list-ref lista 2))
+                             (cond
+                             	(equal? parametro2 "encode-text")
+                             	(display "codificando texto...")
+                             	(set! keytext (list-ref lista 2))
+                             	(newline)
+                             	;aca ingresamos la funcioln de codificar el texto
+                             	)
 
-								)
-								((equal? parametro2 "decode-text")
-								)
-								((equal? parametro2 "decode-text-key")
-
-								)
-								((equal? parametro2 "decode-file")
-
-								)
-
-
-
-							)
-							(else
-							(display "Error! Expresion no valida")
-							(display " saliendo ...." )
-							(display "gracias por usar nuestro codificador "))
-						)
-
-
+                             (cond
+                             	(equal? parametro2 "codkeytext")
+                             	;aca ingresamos la funcion para cifrar texto
+                             	()
+                             	)
+                             (cond
+                             	(equal? parametro2 "encode-text-key"))
+                             ;aca ingresamos la funcion para cifrar la llave
+                             )
+								(cond
+									(equal? parametro2 "encode-file")
+									;aca ingresamos la funcion para cifrar archivo
+								)	
+                					(cond
+                						(equal? parametro2 "decode-text")
+                						;aca ingresamos la funcion para cifrar archivo
+                						)
+                					 	(cond
+                					 		(equal? parametro2 "decode-text-key")
+                					 		;aca ingresamos la funcion para decodificar el text con llave
+                					 		)
+                					 		(cond
+                					 			(equal? parametro2 "decode-file")
+                					 			;aca ingresamos la funcion para decodificar el texto con llave
+                					 			)
+  			;(string-split " ")
+  			;(string-split #:trim? #f)
+  			 ;(string-locale=? parametros))
+                        
+                (else
+(display "Error! Expresion no valida")
+(display " saliendo ...." )
+(display "gracias por usar nuestro codificador "))
+                )
+	
