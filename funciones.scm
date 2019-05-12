@@ -11,12 +11,14 @@
 (define (encodeString txt llave)
    ;su implementación
    (define workKey (completeKey llave txt))
+  (display workKey)
    (define result (string-copy txt))
    (define cont 0)
    (define (ciclo) 
 	(cond
 		[(< cont (string-length txt))
-			(string-set! result cont (integer->char (encodeChar (string-ref txt cont) (string-ref workKey cont))))
+			(string-set! result cont (integer->char (encodeChar (string-ref txt cont)
+                                                                            (string-ref workKey cont))))
 			(set! cont (+ cont 1))
 		(ciclo)
 		]
@@ -31,13 +33,26 @@
 	(define cont2 0)
 	(define (ciclo)
 		(cond
-			[(< cont (string-length txt))
-				(if (= cont2 (string-length llave)) (set! cont2 0))
+		[(< cont (string-length txt))
+		(if (= cont2 (string-length llave)) (set! cont2 0))
+                (cond 
+                    [(equal? #\space (string-ref txt cont))
+                    (display "espacio encontrado")
+                    (newline)
+                        (string-set! new_key cont #\space)
+                        (set! cont (+ cont 1))
+                        ;(set! cont2 (+ cont2 1))
+                        (ciclo)
+                    ]
+                    [else 
+                        (string-set! new_key cont (string-ref llave cont2))
+				        (set! cont (+ cont 1))
+                        (set! cont2 (+ cont2 1))
+				        (ciclo)
+                    ]
+                )
                 
-				(string-set! new_key cont (string-ref llave cont2))
-				(set! cont (+ cont 1))
-                                (set! cont2 (+ cont2 1))
-				(ciclo)
+				
 			]
 		)
 	)
@@ -52,11 +67,13 @@
 )
 
 (define (getChar chtt chkk mode)
-	   (define chTxtIsLowerCase false)
+   
+   (define chTxtIsLowerCase false)
    (define chLlaveIsLowerCase false)
    (define cht (char->integer chtt))
    (define chk (char->integer chkk))
-   (cond
+  (cond [(not (equal? #\space chtt))
+           (cond
         [(and (< cht 91) (> cht 64))
             (set! chTxtIsLowerCase false)
         ]
@@ -93,6 +110,12 @@
   
 	
 	(convertChar (process (convertChar cht chTxtIsLowerCase 1) (convertChar chk chLlaveIsLowerCase 1) mode) chTxtIsLowerCase 2)
+   ]
+   [else 
+    32
+   ]
+   )
+
 )
 
 
@@ -136,6 +159,6 @@
    (ciclo)
    result
 )
-(encodeString "Hola" "lezzz")
+(encodeString "Hola hola" "lezzz")
 (decodeString "Ssxz" "lemzz")
 "cadena"
