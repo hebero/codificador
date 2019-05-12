@@ -159,6 +159,30 @@
    (ciclo)
    result
 )
+
+(define (write-file name content)
+
+)
+(define (get-file-text file)
+    (define txtResult "")
+    (define iFile (open-input-file name))
+    (cond
+        [(file-exists? file)
+            (define in (open-input-file "/home/heber/prueba.txt"))
+            (define (ciclo)
+                (cond
+                    ((not (eof-object? (peek-char in)))
+                        (set! txtResult (string(read-char in)))                        
+                        (ciclo)
+                    )
+                )
+            )
+            (ciclo)
+        ]
+    )
+    (close-input-port in)
+    txtResult
+)
 (encodeString "Hola hola" "lezzz")
 (decodeString "Ssxz" "lemzz")
 "cadena"
