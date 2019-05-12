@@ -49,13 +49,15 @@
 								)
 								
 							)
-							((equal? parametro2 "codkeytext")
+							((equal? parametro1 "encode-text-key")
 									;aca ingresamos la funcion para cifrar texto
-									()
-								)
-								((equal? parametro2 "encode-text-key")
-
-								)
+									(cond
+										[(= (validaCaracteres (list-ref lista 1)))
+											(set! keytext (list-ref lista 1))
+											
+										]
+									)
+							)
 								((equal? parametro2 "encode-file")
 
 								)
@@ -71,11 +73,10 @@
 
 
 							)
+							(else
+							(display "Error! Expresion no valida")
+							(display " saliendo ...." )
+							(display "gracias por usar nuestro codificador "))
 						)
-													
-					(else
-	(display "Error! Expresion no valida")
-	(display " saliendo ...." )
-	(display "gracias por usar nuestro codificador "))
-					)
-		
+
+
