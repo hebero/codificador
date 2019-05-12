@@ -179,6 +179,9 @@
             )
             (ciclo)
         ]
+        [else 
+            false
+        ]
     )
     (close-input-port in)
     txtResult
