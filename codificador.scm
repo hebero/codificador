@@ -1,6 +1,5 @@
 #lang racket
 (require racket/include)
-(require racket/exn)
 (include "funciones.rkt")
 
 ;Valida si una palabra es valida como llave
@@ -104,12 +103,62 @@
             (cond
                 [(not (null? keytext))
                     (display "resultado >> ")
-                    (encodeString (get-resto-palabras lista 1) keytext)
+                    (display (encodeString (get-resto-palabras lista 1) keytext))
                     (display-consola)
                     (menu-ciclo (read-line))
                 ]
                 [else
                     (display "No ingreso ninguna llave")
+                    (display-consola)
+                    (menu-ciclo (read-line))
+                ]
+            )
+                
+            ]
+            [(equal? commando "decode-text")
+            (cond
+                [(not (null? keytext))
+                    (display "resultado >> ")
+                    (display (decodeString (get-resto-palabras lista 1) keytext))
+                    (display-consola)
+                    (menu-ciclo (read-line))
+                ]
+                [else
+                    (display "No ingreso ninguna llave")
+                    (display-consola)
+                    (menu-ciclo (read-line))
+                ]
+            )
+                
+            ]
+            [(equal? commando "encode-text-key")
+            (cond
+                [(= (validaCaracteres (list-ref lista 1)) 0)
+                    (display "resultado >> ")
+                    (display (encodeString (get-resto-palabras lista 2) (list-ref lista 1)))
+                    (display-consola)
+                    (menu-ciclo (read-line))
+                ]
+                [else
+                    (display "Llave no admitida.")
+                    (display-consola)
+                    (menu-ciclo (read-line))
+                ]
+            )
+                
+            ]
+            [(equal? commando "decode-text-key")
+            (cond
+                [(= (validaCaracteres (list-ref lista 1)) 0)
+                    (display "resultado >> ")
+                    (display (decodeString (get-resto-palabras lista 2) (list-ref lista 1)))
+                    (display-consola)
+                    (menu-ciclo (read-line))
+                ]
+                [else
+                    (display "Llave no admitida.")
+                    (display-consola)
+                    (menu-ciclo (read-line))
                 ]
             )
                 
