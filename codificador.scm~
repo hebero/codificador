@@ -1,8 +1,6 @@
 #lang racket
-(require racket/include)
-(require racket/exn)
-(include "funciones.rkt")
 
+(include "funciones.scm")
 ;Valida si una palabra es valida como llave
 ;return: 1 si es inválida, 0 si es válida
 (define (validaCaracteres palabra)
@@ -37,9 +35,9 @@
     (define result "")
     (define (ciclo)
         (cond
-            [(< pos (length lista))
+            [(< pos (lenght lista))
                 (set! result (string-append (list-ref lista pos)))
-                (set! pos (+ pos 1))
+                (set! pos (+ post 1))
             ]
         )
     )
@@ -65,7 +63,7 @@
 )
 (define (main)
     (define CONS_ERROR1 "Error! ningun comando ingresado.")
-    (define CONS_ERROR2 "Error! no es un comando aceptado")
+    (define CONS_ERROR2 "Error! Sea lo que sea que no es un comando aceptado")
     (define keytext "")
     (bienvenida)
     (define primeraEntrada (read-line))
@@ -81,6 +79,10 @@
             [(null? commando)
                 (display CONS_ERROR1)
                 (display-consola)
+                (menu-ciclo (read-line))
+            ]
+            [(not (string? commando))
+                (display CONS_ERROR2)
                 (menu-ciclo (read-line))
             ]
             [(equal? commando "exit")
@@ -101,18 +103,8 @@
                             )
                         ]
             [(equal? commando "encode-text")
-            (cond
-                [(not (null? keytext))
-                    (display "resultado >> ")
-                    (encodeString (get-resto-palabras lista 1) keytext)
-                    (display-consola)
-                    (menu-ciclo (read-line))
-                ]
-                [else
-                    (display "No ingreso ninguna llave")
-                ]
-            )
-                
+                ()
+                (encode-string (get-resto-palabras lista 1) keytext)
             ]
 
                         [else
@@ -126,7 +118,7 @@
         )    
     )
     (cond
-        [(null? primeraEntrada)
+        [(null? (list-ref lista 0))
             (display CONS_ERROR1)
         ]
         [(not (string? (list-ref lista 0)))

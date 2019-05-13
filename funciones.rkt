@@ -1,4 +1,3 @@
-#lang racket
 (require racket/include)
 ; PUEDE AGREGAR MÁS FUNCIONES E INSTRUCCIONES SEGÚN SU NECESIDAD
 
@@ -13,7 +12,6 @@
 (define (encodeString txt llave)
    ;su implementación
    (define workKey (completeKey llave txt))
-  (display workKey)
    (define result (string-copy txt))
    (define cont 0)
    (define (ciclo) 
